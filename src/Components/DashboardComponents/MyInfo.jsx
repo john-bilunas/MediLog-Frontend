@@ -23,7 +23,6 @@ const MyInfo = ({email, phone, name, username}) => {
     }
     const auth = useContext(AuthContext);
     return (
-        (isEdit ?
             <div className= "dashboard-content-container">
                 <ul className= "my-info-list">
                     <li><strong>Name:</strong> {name}</li>
@@ -31,32 +30,15 @@ const MyInfo = ({email, phone, name, username}) => {
                     <li><strong>Email:</strong> {email}</li>
                     <li><strong>Phone:</strong> {phone}</li>
                 </ul>
-                <div className= "center">
+                {/* <div className= "center">
 
-                {/* <button className= 'button'><img src={editIcon} alt="edit icon"  className= "icon"/>Edit</button> */}
-                <button className= 'button save' onClick = {handleSave}>Save</button>
-                <button className= 'button undo' onClick = {handleReset}>Undo</button>
+                    <button className= 'button save' onClick = {handleSave}>Save</button>
+                    <button className= 'button undo' onClick = {handleReset}>Undo</button>
                 
-                </div>
+                </div> */}
             
             </div>
-            :
-            <div className= "dashboard-content-container">
-                <ul className= "my-info-list">
-                    <li><strong>Name:</strong> {name}</li>
-                    <li><strong>Username:</strong> {username}</li>
-                    <li><strong>Email:</strong> {email}</li>
-                    <li><strong>Phone:</strong> {phone}</li>
-                </ul>
-                <div className= "center">
-
-                {/* <button className= 'button'><img src={editIcon} alt="edit icon"  className= "icon"/>Edit</button> */}
-                
-                <button className= 'button edit' onClick = {handleEdit}>Edit</button>
-                
-                </div>
-            
-            </div>)
-    )
+            )
+    
 }
 export default MyInfo;

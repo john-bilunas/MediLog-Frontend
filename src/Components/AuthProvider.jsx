@@ -10,7 +10,7 @@ export default function AuthProvider({children}){
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
 
-    
+    const [userInfo, setUserInfo] = useState();
 
     // Local Storage Functionality
     function setLocalStorageAuth(token){
@@ -72,7 +72,7 @@ export default function AuthProvider({children}){
     //send it in request along with _id to get users information
     console.log("token" , getLocalStorageAuth())
 
-    const verifyJWT = async () => {
+    const verifyJWT = async (_id) => {
         try{
             const verifiyURL = `${process.env.REACT_APP_API_BASE_URL}/api/login/verifyJWT`
             let response = await fetch( verifiyURL, {
@@ -93,14 +93,26 @@ export default function AuthProvider({children}){
             console.log('Error adding patient', err)
         }
     }
-    // useEffect( () => {
-    //     //reach out to db to see if jwt is valid. if so, set logged in to true
-    //     verifyJWT();
-        
-    // }, []);
+    useEffect( () => {
+        //reach out to db to see if jwt is valid. if so, set logged in to true
+        // verifyJWT();
+        // const lsID = localStorage.getItem('id');
+        // console.log('local storage id on first render:', lsID)
 
+        //check for 
+        const userId = localStorage.getItem('id');
+        const token = localStorage.getItem('authToken');
+        if(userId && token) {
+            // console.log('User is still logged in!!')
+            setIsloggedIn(true);
+        }
+    }, []);
+
+    const fullName = () => {
+        return name;
+    }
     return(
-        <AuthContext.Provider value = {{ isLoggedIn, id, name, username, login, logout, getLocalStorageAuth, checkIfLoggedIn}}>
+        <AuthContext.Provider value = {{ isLoggedIn, id, name, username, login, logout, getLocalStorageAuth, checkIfLoggedIn, fullName}}>
             {children} 
         </AuthContext.Provider>
        

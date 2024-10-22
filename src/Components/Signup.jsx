@@ -12,8 +12,17 @@ export const Signup = () => {
     const [phone,setPhone] = useState('');
 
     const [triedToSubmit, setTriedToSubmit] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const auth = useContext(AuthContext);
+    const [errorMessage, setErrormessage] = useState('');
+        const auth = useContext(AuthContext);
+        useEffect( () => {
+        setIsLoggedIn(auth.checkIfLoggedIn())
+    });
+    useEffect(() => {
+        if(isLoggedIn) navigate("/dashboard")
+    }, [isLoggedIn]);
+
     const navigate = useNavigate();
     //event handler functions
     const handleSignUp = async (e) => {
@@ -40,12 +49,19 @@ export const Signup = () => {
                     "Content-Type": "application/json"
                 }
             });
+
+            const status = response.status;
+            response = await response.json();
             console.log(response)
-            if(response.status === 200){
+            if(status === 200){
                 console.log('200');
                 handleUserLogin();
-            }
-            response = await response.json();
+                navigate("/dashboard")
+                setErrormessage('')
+            }else{
+                setErrormessage(response.message)
+            }   
+            
             console.log(response)
             
         }
@@ -204,8 +220,10 @@ export const Signup = () => {
             </div>
             {triedToSubmit && (
                 <ul style= {{color: "red"}}>
+                    
                     {allValidators}
                 </ul>)
+                
              }
             
 
@@ -213,6 +231,7 @@ export const Signup = () => {
 
             <button className= "button"  onClick={ handleSignUp }>Signup</button>
             <button className= 'switch-auth' onClick= {() => { navigate('/login')}}>Already a member? Log in!</button>
+            {errorMessage}
         </div>
     )
             }

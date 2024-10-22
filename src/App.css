@@ -6,8 +6,9 @@
   --color4:#000000;
   --color5:#7d4bdb;
   --color6: #787878;
-  --save:#7ed321;
+  --save:#5db301;
   --undo:#9e9e9e;
+  --delete:#c30202;
 }  
 *{
   /* width: 100%; */
@@ -61,6 +62,7 @@ h3{
 h4{
   font-size: 36px;
   margin: 20px;
+  text-align: center;;
 }
   .dashboard-section-container {
     background-color: white;
@@ -102,6 +104,7 @@ h4{
   margin: 0px
 }
 .dashboard-content-container {
+  position:relative;
   background-color: var(--color2);
   /* border: solid 1px black; */
   width: 100%;
@@ -126,7 +129,10 @@ h4{
  margin: 1em;
  cursor: pointer;
 }
-.edit{
+.delete{
+  background-color:var(--delete);
+}
+.update{
   background-color: var(--color5);;
 }
 .save{
@@ -143,9 +149,9 @@ h4{
   transition: opacity .15s ease;
   /* transition: background-color .2s ease; */
 }
-.edit:active{
+/* .edit:active{
   box-shadow: 1px 1px 1px 1px var(--color5);
-}
+} */
 .undo:active{
   box-shadow: 1px 1px 1px 1px var(--undo);
 }
@@ -201,6 +207,7 @@ h4{
   background-color: rgba(0, 0, 0, .5);
   /* opacity: 50%; */
   position: fixed;
+  z-index: 10;
   top: 0px;
   left: 0px;
   bottom: 0;
@@ -211,13 +218,15 @@ h4{
   align-items: center;
 }
 .inner-modal{
-  padding: 100px 0px;
-  min-height: 200px;
+  padding: 75px 50px 75px 50px;
+  min-height: 400px;
   width: 90%;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items:center;
+  position: fixes;
+  z-index: 11;
   /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 .x{
@@ -273,22 +282,7 @@ button:disabled:hover{
   color: green;
   font-size: 72px;
 }
-.log-display{
-  list-style-type: none;
-  width: 100%;
-  font-size: 24px;
-  margin: 0px;
-  border: solid 1px black;
-  text-align: center
-}
-.log-display li{
-  margin: 10px 0px;
-  color: rgb(1, 73, 1);
-  text-align: center
-}
-.log-display li:first-child{
-  margin: 0px 0px 10px 0px;
-}
+
 
 .log-forms{
   background-color: var(--color2);
@@ -310,6 +304,7 @@ button:disabled:hover{
 .logout{
   position: absolute;
   right: 3vw;
+  top: 2vh;
   font-weight: bold;
   color: var(--color5);
   
@@ -337,4 +332,102 @@ button:disabled:hover{
 .error{
   color: red;
   font-size: 36px;
+}
+#patient-info{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  
+}
+.patient-info-section{
+  width: 100%;
+  
+}
+.patient-info-section h4{
+  border-bottom: solid 5px black;
+  
+}
+.log-display{
+  list-style-type: none;
+  width: 100%;
+  font-size: 24px;
+  margin: 0px;
+  text-align: left;
+}
+.log-display li{
+  margin: 5px 0px ;
+  color: rgb(1, 73, 1);
+  text-align: left;
+  /* padding-left: 5%; */
+  padding: 5px 0px;
+  display: flex;
+  align-items: center;
+}
+.confirm-warning{
+font-size: 32px;
+}
+
+.update-image{
+  height: 40px;
+  width: 40px;
+  /* display: inline-block; */
+  margin-right: 30px;
+}
+.update-image:hover{
+  cursor: pointer;
+}
+.update-image:active{
+  height: 45px;
+  width: 45px;
+}
+.multi-buttons{
+  display: flex;
+  justify-content: space-around;
+}
+
+
+#x{
+  color: var(--delete);
+  font-size: 72px;
+  position:absolute;
+  top: 5%;
+  right:5%;
+}
+#x:hover{
+  cursor: pointer;
+}
+#x:active{
+  font-size: 64px;
+}
+
+
+@media  (max-width : 1100px ){
+
+  #patient-info{
+    flex-direction: column;
+  
+  }
+}
+
+@media  (max-width : 700px ){
+
+  .multi-buttons{
+    display: flex;
+    /* justify-content: space-around; */
+    flex-direction: column;
+  }
+  .multi-buttons button{
+    margin: .5em;
+
+  }
+  .x{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 4em;
+    text-align: center;
+    color: rgb(224, 1, 1);
+    cursor: pointer;
+    /* border: solid.1px black; */
+  }
 }

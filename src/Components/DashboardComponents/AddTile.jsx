@@ -116,12 +116,10 @@ function AddTile({tileImage, title, userInfo, fetchUserInfo}) {
                 }
 
             });
-            const x = new Error('test error');
-            if(patientFirst[0] === 'J')
-            throw x;
+            if(response.status !== 200) throw new Error('Failed to add new patient to profile');
             // response = response.json();
             setIsPatientError(false);
-            fetchUserInfo();
+            await fetchUserInfo();
             modalCloseAfterSuccess();
             //reset the state
             setPatientFirst("");
@@ -162,20 +160,20 @@ function AddTile({tileImage, title, userInfo, fetchUserInfo}) {
 
             //Should I check for the status code? And then hve the error message here?
             //reset state
+            console.log("response", response)
+            if(response.status !== 200) throw new Error('Failed to add medication to patient');
 
-            if(newMedicationName[0] === "J")
-            throw new Error("med");
+            
             setIsMedError(false);
+
+            // response = response.json();
+            modalCloseAfterSuccess();
+            await fetchUserInfo();
             setSelectedPatient(null)
             setNewMedicaitonName('');
             setNewMedicationAmount('');
             setNewMedicaitonUnit('');
             setNewMedicaitonFrequency('');
-            // response = response.json();
-            modalCloseAfterSuccess();
-
-            
-            fetchUserInfo();
 
         }catch(err){
             setIsMedError(true);
@@ -212,10 +210,12 @@ function AddTile({tileImage, title, userInfo, fetchUserInfo}) {
                 }
 
             });
+            if(response.status !== 200) throw new Error('Failed to add log entry to patient');
+
             // response = response.json();
             setIsLogError(false);
             modalCloseAfterSuccess();
-            fetchUserInfo();
+            await fetchUserInfo();
             //reset state
             setSelectedPatientForMedLog("");
             setSelectedMedication("");

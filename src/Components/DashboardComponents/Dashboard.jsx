@@ -23,7 +23,7 @@ useEffect(() => {
     const fetchUserInfo = async () => {
         const info = await getUserInformation();    
         console.log('inside fetch userInfo: ', info)
-        setUserInfo(info);
+        setUserInfo({...info});
         
     };
     //useEffects
@@ -76,7 +76,7 @@ useEffect(() => {
                 <Add userInfo= {userInfo} fetchUserInfo= {fetchUserInfo}/>
             </DashboardSection>
             <DashboardSection title= "Patient Overview">
-                <PatientOverview userInfo= {userInfo}>
+                <PatientOverview userInfo= {userInfo} fetchUserInfo= {fetchUserInfo}>
 
                 </PatientOverview>
 
